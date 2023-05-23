@@ -8,7 +8,13 @@ router.route('/signup')
     .post(authController.signup)
 
 router.route('/login')
-    .post(authController.login)    
+    .post(authController.login)
+
+router.route('/forgotpassword')
+    .post(authController.forgotPassword)
+    
+router.route('/resetPassword').patch(authController.resetPassword)    
+    
 
 router.route('/')
     .get(userController.getAllUsers)
