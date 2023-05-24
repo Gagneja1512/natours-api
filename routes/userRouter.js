@@ -13,7 +13,7 @@ router.route('/login')
 router.route('/forgotpassword')
     .post(authController.forgotPassword)
     
-router.route('/resetPassword').patch(authController.resetPassword)    
+router.route('/resetPassword/:token').patch(authController.resetPassword)    
     
 
 router.route('/')

@@ -85,6 +85,15 @@ userSchema.methods.createPasswordResetToken = function(){
     return resetToken
 }
 
+userSchema.pre('save' , function(next){
+    if(!this.isModified('password') || this.isNew){
+        return next()
+    }
+
+    this.passwordChangedAt =  Date.now() - 1000 //sometimes the jwt made before change the password therefore we subtract 1 sec to be clear in the issue tht the password chaned at property is nearly less than the jwt sign timestamp
+    next()
+})
+
 const User = mongoose.model('User' , userSchema)
 
 module.exports = User
