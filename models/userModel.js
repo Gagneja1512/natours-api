@@ -48,7 +48,18 @@ const userSchema = new mongoose.Schema({
     } , 
     passwordResetExpires : {
         type : Date
+    } , 
+    active : {
+        type : Boolean , 
+        select : false , 
+        default : true
     }
+})
+
+userSchema.pre(/^find/ , function(next) {
+    //this points to current query
+    this.find({active : {$ne : false}})
+    next()
 })
 
 userSchema.pre('save' , async function(next){
